@@ -8,8 +8,7 @@ function Admin() {
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="" id="" />
         <label class="form-check-label" for="">
-          {" "}
-          Default checkbox{" "}
+          Default checkbox
         </label>
       </div>
       <div class="form-check">
@@ -21,7 +20,7 @@ function Admin() {
           checked
         />
         <label class="form-check-label" for="">
-          Checked checkbox{" "}
+          Checked checkbox
         </label>
         <Link to="/login">Login</Link>
       </div>
