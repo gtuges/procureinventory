@@ -7,20 +7,40 @@ require('dotenv').config();
 
 app.use(express.json());
 
-
+const posts = [{
+    username : 'gtuges',
+    title : 'title 1'
+},
+{
+    username : 'stuges',
+    title : 'title 2'
+},
+{
+    username : 'jtuges',
+    title : 'title 3'
+}]
 
 app.get("/",(req,res) => {
     res.send("<h1>Hello world</h1>");
     console.log("get send !")
 })
 
-app.post('/login',authenticateToken,(req,res)=> {
+app.get('/posts',authenticateToken,(req,res) =>{
+
+    res.json(posts.filter(post => post.username === req.user.name)) 
+})
+
+
+app.post('/login',(req,res)=> {
     // authentication
     // left off from here https://youtu.be/mbsmsi7l3r4?t=827
     const username = req.body.username;
     const user = { name : username }
 
     const accessToken = jwt.sign(user, process.env.ACCSS_TOKEN_SECRET);
+
+    console.log(`login ${accessToken}`)
+
     res.json ( { accessToken : accessToken })
 
 
@@ -28,9 +48,14 @@ app.post('/login',authenticateToken,(req,res)=> {
 
 function authenticateToken(req, res, next) {
 
-    const authHeader = req.header['authorization']
+    const authHeader = req.headers['authorization']
+    console.log(` authHeader : ${authHeader}`) 
+    
     const token = authHeader && authHeader.split(' ')[1]
     
+
+    // console.log(` Authenticate : ${token}`) 
+
     if (token == null ) return res.sendStatus(401)
 
         jwt.verify(token, process.env.ACCSS_TOKEN_SECRET,(err,user) => {
