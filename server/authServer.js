@@ -35,6 +35,11 @@ app.get("/posts", (req, res) => {
   res.json(posts.filter((post) => post.username === req.user.name));
 });
 
+app.delete("/logout", (req, res) => {
+  refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
+  res.sendStatus(204);
+});
+
 app.post("/login", (req, res) => {
   // authentication
   // left off from here https://youtu.be/mbsmsi7l3r4?t=827
@@ -51,7 +56,7 @@ app.post("/login", (req, res) => {
 });
 
 function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "60s" });
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "20s" });
 }
 
 app.listen(PORT, () => {
