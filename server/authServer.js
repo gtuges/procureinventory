@@ -14,6 +14,12 @@ app.post("/token", (req, res) => {
   // only refresh tokens are sent into this tooken
   const refreshToken = req.body.token;
 
+  // take the refresh token from the user - need to verify this commnet
+
+  // send error if there is no then or its invalid
+
+  //  if everything ir ok, create a new access toke
+
   // console.log(` refreshtoken -> ${refreshToken}`);
   if (refreshToken == null) return res.sendStatus(401);
   if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
@@ -37,7 +43,7 @@ app.get("/posts", (req, res) => {
 
 app.delete("/logout", (req, res) => {
   refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
-  res.sendStatus(204);
+  res.sendStatus(204).json("Logged out !");
 });
 
 app.post("/login", (req, res) => {
