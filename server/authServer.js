@@ -10,7 +10,7 @@ app.use(express.json());
 // for this we will store it locally, this is not an ideal, when the server is rest, you loose all the stored tokens
 let refreshTokens = [];
 
-app.post("/token", (req, res) => {
+app.post("/refreshtoken", (req, res) => {
   // only refresh tokens are sent into this tooken
   const refreshToken = req.body.token;
 
